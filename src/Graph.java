@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,19 @@ public class Graph {
         adjacencyList.get(vertex1).add(new Edge(vertex2, weight));
     }
 
+    public void exportAdjacencyList(){
+        try(PrintWriter writer = new PrintWriter(new FileWriter("saida.txt"))){
+            for(int i = 0; i < adjacencyList.size(); i++){
+                writer.print(i + ": ");
+                for(Edge edge: adjacencyList.get(i)){
+                    writer.print(edge.vertex + "(" + edge.weigth + ") ");
+                }
+                writer.println();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
     public void printAdjacencyList(){
         for(int i = 0; i < adjacencyList.size(); i++){
             System.out.print(i + ": ");

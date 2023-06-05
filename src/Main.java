@@ -33,5 +33,6 @@ public class Main {
         }
 
         graph.printAdjacencyList();
+        graph.exportAdjacencyList();
     }
 }
