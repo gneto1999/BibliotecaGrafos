@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Graph {
     private static List<List<Edge>> adjacencyList;
@@ -153,6 +154,42 @@ public class Graph {
                 System.out.print(adjacencyMatrix[i][j] + " ");
             }
             System.out.println();
+        }
+    }
+
+    public static void findConnectedComponents(List<List<Edge>> adjacencyList) {
+        int numVertices = adjacencyList.size();
+        boolean[] visited = new boolean[numVertices];
+        List<List<Integer>> components = new ArrayList<>();
+
+        for (int vertex = 0; vertex < numVertices; vertex++) {
+            if (!visited[vertex]) {
+                List<Integer> component = new ArrayList<>();
+                Stack<Integer> stack = new Stack<>();
+                stack.push(vertex);
+
+                while (!stack.isEmpty()) {
+                    int currentVertex = stack.pop();
+
+                    if (!visited[currentVertex]) {
+                        visited[currentVertex] = true;
+                        component.add(currentVertex);
+
+                        List<Edge> neighbors = adjacencyList.get(currentVertex);
+                        for (Edge neighbor : neighbors) {
+                            if (!visited[neighbor.getVertex()]) {
+                                stack.push(neighbor.getVertex());
+                            }
+                        }
+                    }
+                }
+
+                components.add(component);
+                System.out.println("Componente:");
+                System.out.println("Tamanho: " + component.size());
+                System.out.println("Vértices: " + component);
+                System.out.println();
+            }
         }
     }
 }

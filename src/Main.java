@@ -78,7 +78,17 @@ public class Main {
                                         initialVertex);
                             }
                         } else if(option == 2) {
-                            // DFS AQUI!!!
+                            if(Graph.getAdjacencyList() != null){
+                                DepthFirstSearch.dfs(
+                                        Graph.getAdjacencyList(),
+                                        Graph.getNumberVertices(),
+                                        initialVertex);
+                            } else {
+                                DepthFirstSearch.dfs(
+                                        Graph.getAdjacencyMatrix(),
+                                        Graph.getNumberVertices(),
+                                        initialVertex);
+                            }
                         }
                     } catch (NullPointerException e) {
                         System.out.println("Representação do Grafo está nula!! Crie uma representação na opção 2.\n");
@@ -87,6 +97,8 @@ public class Main {
                     }
                     break;
                 case 4:
+                    adjacencyMatrix(path);
+                    Graph.findConnectedComponents(Graph.getAdjacencyList());
                     break;
                 default:
                     System.out.println("Opção incorreta!");
