@@ -149,8 +149,8 @@ public class Graph {
     }
 
     public static void printAdjacencyMatrix() {
-        for (int i = 0; i < adjacencyMatrix.length; i++) {
-            for (int j = 0; j < adjacencyMatrix.length; j++) {
+        for (int i = 1; i < adjacencyMatrix.length; i++) {
+            for (int j = 1; j < adjacencyMatrix.length; j++) {
                 System.out.print(adjacencyMatrix[i][j] + " ");
             }
             System.out.println();

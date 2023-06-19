@@ -100,6 +100,17 @@ public class Main {
                     adjacencyMatrix(path);
                     Graph.findConnectedComponents(Graph.getAdjacencyList());
                     break;
+                case 5:
+                    try {
+                        if(Graph.getAdjacencyList() != null) {
+                            Prim.primMst(Graph.getAdjacencyList(), Graph.getNumberVertices());
+                        } else {
+                            Prim.primMst(Graph.getAdjacencyMatrix(), Graph.getNumberVertices());
+                        }
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 default:
                     System.out.println("Opção incorreta!");
             }
@@ -112,6 +123,7 @@ public class Main {
         System.out.println("2 - Representação do Grafo");
         System.out.println("3 - Busca em Grafos");
         System.out.println("4 - Componentes Conexos");
+        System.out.println("5 - Árvore geradora mínima MST");
         System.out.println("0 - Sair do programa");
     }
 
