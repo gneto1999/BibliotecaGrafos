@@ -111,10 +111,21 @@ public class Main {
                         System.out.println(e.getMessage());
                     }
                     break;
+                case 6:
+                    System.out.println("Vértice incial");
+                    initialVertex = sc.nextInt();
+                    if(Graph.getAdjacencyList() != null) {
+                        DijkstraAlgorithm.dijkstra(Graph.getAdjacencyList(), Graph.getNumberVertices(), initialVertex);
+                    } else {
+                        DijkstraAlgorithm.dijkstra(Graph.getAdjacencyMatrix(), Graph.getNumberVertices(), initialVertex);
+                    }
+                    break;
                 default:
                     System.out.println("Opção incorreta!");
             }
         } while (option != 0);
+
+        sc.close();
     }
 
     static void showMenu() {
@@ -124,6 +135,7 @@ public class Main {
         System.out.println("3 - Busca em Grafos");
         System.out.println("4 - Componentes Conexos");
         System.out.println("5 - Árvore geradora mínima MST");
+        System.out.println("6 - Dijkstra");
         System.out.println("0 - Sair do programa");
     }
 

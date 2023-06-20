@@ -151,7 +151,7 @@ public class Graph {
     public static void printAdjacencyMatrix() {
         for (int i = 1; i < adjacencyMatrix.length; i++) {
             for (int j = 1; j < adjacencyMatrix.length; j++) {
-                System.out.print(adjacencyMatrix[i][j] + " ");
+                System.out.print(adjacencyMatrix[i][j] + "\t");
             }
             System.out.println();
         }
