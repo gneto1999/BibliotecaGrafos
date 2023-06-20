@@ -14,6 +14,7 @@ public class Graph {
         numberVertices = numVertices;
 
         adjacencyList = new ArrayList<>(numVertices+1);
+        adjacencyMatrix = null;
 
         for(int i = 0; i <= numVertices; i++){
             adjacencyList.add(new ArrayList<>());
@@ -22,6 +23,7 @@ public class Graph {
 
     public static void buildAdjacencyMatrix(int numVertices){
         numberVertices = numVertices;
+        adjacencyList = null;
         adjacencyMatrix = new int[numVertices+1][numVertices+1];
     }
 
@@ -59,7 +61,7 @@ public class Graph {
 
     private static int edgesAmount() {
         int amount = 0;
-        if(adjacencyList != null && adjacencyMatrix == null) {
+        if(adjacencyList != null) {
             for (List<Edge> edges : adjacencyList) {
                 amount += edges.size();
             }

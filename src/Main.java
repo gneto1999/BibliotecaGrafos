@@ -10,122 +10,114 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String path = "";
 
-        int option;
-        do {
-            showMenu();
-            System.out.print("\nOpção: ");
-            option = sc.nextInt();
-            sc.nextLine();
+        try {
+            int option;
+            do {
+                showMenu();
+                System.out.print("\nOpção: ");
+                option = sc.nextInt();
+                sc.nextLine();
 
-            switch (option) {
-                case 0:
-                    System.out.println("Saindo do Programa...");
-                    Graph.exportGraphData();
-                    break;
-                case 1:
-                    System.out.print("Caminho do arquivo: ");
-                    path = sc.nextLine();
-                    break;
-                case 2:
-                    System.out.println("1 - Matriz de Adjacência com peso");
-                    System.out.println("2 - Matriz de Adjacência sem peso");
-                    System.out.println("3 - Lista de Adjacência com peso");
-                    System.out.println("4 - Lista de Adjacência sem peso");
-                    System.out.println();
-                    System.out.print("Opção: ");
-                    option = sc.nextInt();
+                switch (option) {
+                    case 0:
+                        System.out.println("Saindo do Programa...");
+                        Graph.exportGraphData();
+                        break;
+                    case 1:
+                        System.out.print("Caminho do arquivo: ");
+                        path = sc.nextLine();
+                        break;
+                    case 2:
+                        System.out.println("1 - Matriz de Adjacência com peso");
+                        System.out.println("2 - Matriz de Adjacência sem peso");
+                        System.out.println("3 - Lista de Adjacência com peso");
+                        System.out.println("4 - Lista de Adjacência sem peso");
+                        System.out.println();
+                        System.out.print("Opção: ");
+                        option = sc.nextInt();
 
-                    sc.nextLine();
+                        sc.nextLine();
 
-                    if(option == 1) {
-                        adjacencyMatrixWeight(path);
-                        Graph.printAdjacencyMatrix();
-                    } else if(option == 2) {
-                        adjacencyMatrix(path);
-                        Graph.printAdjacencyMatrix();
-                    } else if(option == 3) {
-                        adjacencyListWeight(path);
-                        Graph.printAdjacencyList();
-                    } else if(option == 4) {
-                        adjacencyList(path);
-                        Graph.printAdjacencyList();
-                    } else {
-                        option = 100;
-                    }
-                    break;
-                case 3:
-                    System.out.println("1 - BFS");
-                    System.out.println("2 - DFS");
-                    System.out.print("Opção: ");
-                    option = sc.nextInt();
-
-                    sc.nextLine();
-
-                    System.out.print("Vértice inicial: ");
-                    int initialVertex = sc.nextInt();
-
-                    try {
                         if(option == 1) {
-                            if(Graph.getAdjacencyList() != null) {
-                                BreadthFirstSearch.bfs(
-                                        Graph.getAdjacencyList(),
-                                        Graph.getNumberVertices(),
-                                        initialVertex);
-                            } else {
-                                BreadthFirstSearch.bfs(
-                                        Graph.getAdjacencyMatrix(),
-                                        Graph.getNumberVertices(),
-                                        initialVertex);
-                            }
+                            adjacencyMatrixWeight(path);
+                            Graph.printAdjacencyMatrix();
                         } else if(option == 2) {
-                            if(Graph.getAdjacencyList() != null){
-                                DepthFirstSearch.dfs(
-                                        Graph.getAdjacencyList(),
-                                        Graph.getNumberVertices(),
-                                        initialVertex);
-                            } else {
-                                DepthFirstSearch.dfs(
-                                        Graph.getAdjacencyMatrix(),
-                                        Graph.getNumberVertices(),
-                                        initialVertex);
-                            }
-                        }
-                    } catch (NullPointerException e) {
-                        System.out.println("Representação do Grafo está nula!! Crie uma representação na opção 2.\n");
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case 4:
-                    adjacencyMatrix(path);
-                    Graph.findConnectedComponents(Graph.getAdjacencyList());
-                    break;
-                case 5:
-                    try {
-                        if(Graph.getAdjacencyList() != null) {
-                            Prim.primMst(Graph.getAdjacencyList(), Graph.getNumberVertices());
+                            adjacencyMatrix(path);
+                            Graph.printAdjacencyMatrix();
+                        } else if(option == 3) {
+                            adjacencyListWeight(path);
+                            Graph.printAdjacencyList();
+                        } else if(option == 4) {
+                            adjacencyList(path);
+                            Graph.printAdjacencyList();
                         } else {
-                            Prim.primMst(Graph.getAdjacencyMatrix(), Graph.getNumberVertices());
+                            option = 100;
                         }
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case 6:
-                    System.out.println("Vértice incial");
-                    initialVertex = sc.nextInt();
-                    if(Graph.getAdjacencyList() != null) {
-                        DijkstraAlgorithm.dijkstra(Graph.getAdjacencyList(), Graph.getNumberVertices(), initialVertex);
-                    } else {
-                        DijkstraAlgorithm.dijkstra(Graph.getAdjacencyMatrix(), Graph.getNumberVertices(), initialVertex);
-                    }
-                    break;
-                default:
-                    System.out.println("Opção incorreta!");
-            }
-        } while (option != 0);
+                        break;
+                    case 3:
+                        System.out.println("1 - BFS");
+                        System.out.println("2 - DFS");
+                        System.out.print("Opção: ");
+                        option = sc.nextInt();
 
-        sc.close();
+                        sc.nextLine();
+
+                        System.out.print("Vértice inicial: ");
+                        int initialVertex = sc.nextInt();
+
+                        if(option == 1) {
+                            BreadthFirstSearch.bfs(
+                                    Graph.getAdjacencyList(),
+                                    Graph.getAdjacencyMatrix(),
+                                    Graph.getNumberVertices(),
+                                    initialVertex);
+                        } else if(option == 2) {
+                            DepthFirstSearch.dfs(
+                                    Graph.getAdjacencyList(),
+                                    Graph.getAdjacencyMatrix(),
+                                    Graph.getNumberVertices(),
+                                    initialVertex);
+                        }
+                        break;
+                    case 4:
+                        adjacencyMatrix(path);
+                        Graph.findConnectedComponents(Graph.getAdjacencyList());
+                        break;
+                    case 5:
+                        Prim.primMst(Graph.getAdjacencyList(), Graph.getAdjacencyMatrix(), Graph.getNumberVertices());
+                        break;
+                    case 6:
+                        System.out.println("\n1 - BFS");
+                        System.out.println("2 - Dijkstra\n");
+                        System.out.print("Opção: ");
+                        option = sc.nextInt();
+                        sc.nextLine();
+
+                        System.out.print("Vértice incial: ");
+                        initialVertex = sc.nextInt();
+
+                        System.out.println();
+
+                        if(option == 1) {
+                            BreadthFirstSearch.bfs(
+                                    Graph.getAdjacencyList(),
+                                    Graph.getAdjacencyMatrix(),
+                                    Graph.getNumberVertices(),
+                                    initialVertex);
+                        } else if(option == 2) {
+                            DijkstraAlgorithm.dijkstra(Graph.getAdjacencyList(), Graph.getAdjacencyMatrix(), Graph.getNumberVertices(), initialVertex);
+                        }
+                        break;
+                    default:
+                        System.out.println("Opção incorreta!");
+                }
+            } while (option != 0);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            sc.close();
+        }
+
     }
 
     static void showMenu() {
@@ -135,7 +127,7 @@ public class Main {
         System.out.println("3 - Busca em Grafos");
         System.out.println("4 - Componentes Conexos");
         System.out.println("5 - Árvore geradora mínima MST");
-        System.out.println("6 - Dijkstra");
+        System.out.println("6 - Distância e Caminho Mínimo");
         System.out.println("0 - Sair do programa");
     }
 

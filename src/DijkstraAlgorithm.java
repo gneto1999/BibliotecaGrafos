@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class DijkstraAlgorithm {
-    public static void dijkstra(List<List<Edge>> adjacencyList, int numVertices, int initialVertex) {
+    public static void dijkstra(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numVertices, int initialVertex) {
+        initialize(adjacencyList, adjacencyMatrix, numVertices, initialVertex);
+    }
+
+    private static void initialize(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numVertices, int initialVertex) {
         int [] key = new int[numVertices];
         Integer [] parent = new Integer[numVertices];
         boolean [] visited = new boolean[numVertices];
@@ -19,6 +23,16 @@ public class DijkstraAlgorithm {
 
         priorityQueue.add(new Vertex(initialVertex, 0));
 
+        if(adjacencyList != null) {
+            relaxation(visited, parent, key, priorityQueue, adjacencyList);
+        } else {
+            relaxation(visited, parent, key, priorityQueue, adjacencyMatrix);
+        }
+
+        printDijkstra(initialVertex, numVertices, key);
+    }
+
+    private static void relaxation(boolean [] visited, Integer [] parent, int [] key, PriorityQueue<Vertex> priorityQueue, List<List<Edge>> adjacencyList) {
         while(!priorityQueue.isEmpty()) {
             int u = priorityQueue.poll().getVertex();
             List<Edge> adjVertices = adjacencyList.get(u);
@@ -33,25 +47,8 @@ public class DijkstraAlgorithm {
                 }
             }
         }
-
-        printDijkstra(initialVertex, numVertices, key);
     }
-
-    public static void dijkstra(int [][] adjacencyMatrix, int numVertices, int initialVertex) {
-        int [] key = new int[numVertices];
-        Integer [] parent = new Integer[numVertices];
-        boolean [] visited = new boolean[numVertices];
-
-        Arrays.fill(key, Integer.MAX_VALUE);
-        Arrays.fill(parent, null);
-        Arrays.fill(visited, false);
-
-        key[0] = 0;
-
-        PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>(numVertices, Comparator.comparingInt(v -> v.getKey()));
-
-        priorityQueue.add(new Vertex(initialVertex, 0));
-
+    private static void relaxation(boolean [] visited, Integer [] parent, int [] key, PriorityQueue<Vertex> priorityQueue, int [][] adjacencyMatrix) {
         while(!priorityQueue.isEmpty()) {
             int u = priorityQueue.poll().getVertex();
             visited[u] = true;
@@ -73,9 +70,8 @@ public class DijkstraAlgorithm {
                 }
             }
         }
-
-        printDijkstra(initialVertex, numVertices, key);
     }
+
     private static void printDijkstra(int root, int numVertices, int [] key) {
         System.out.println("Algoritmo Dijkstra - Caminho mínimo:");
         System.out.println("\nOrigem Vértice Distância");
