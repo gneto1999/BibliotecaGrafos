@@ -3,12 +3,11 @@ import java.util.*;
 
 public class BreadthFirstSearch {
     // BFS a partir de uma lista de adjacência
-    public static void bfs(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numberVertices, int initialVertex) throws NullPointerException, IOException {
-        initialize(adjacencyList, adjacencyMatrix, numberVertices, initialVertex);
-        System.out.println();
+    public static int[] bfs(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numberVertices, int initialVertex) throws NullPointerException, IOException {
+        return initialize(adjacencyList, adjacencyMatrix, numberVertices, initialVertex);
     }
 
-    private static void initialize(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numberVertices, int initialVertex) throws IOException {
+    private static int [] initialize(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numberVertices, int initialVertex) throws IOException {
         // Fila
         Queue<Integer> queue = new LinkedList<>();
         // Array de vértices visitados
@@ -25,7 +24,7 @@ public class BreadthFirstSearch {
         level[initialVertex] = 0;
 
         queue.add(initialVertex);
-        System.out.print("BFS saída: ");
+        System.out.print("\nBFS saída: ");
 
         if(adjacencyList != null) {
             searching(queue, adjacencyList, visited, parent, level, distance);
@@ -34,6 +33,8 @@ public class BreadthFirstSearch {
         }
         printDistance(initialVertex, numberVertices, distance);
         SearchGraphOutput.writeFile(parent, level, numberVertices);
+
+        return distance;
     }
 
     private static void searching(Queue<Integer> queue, List<List<Edge>> adjacencyList, boolean [] visited, int [] parent, int [] level, int[] distance) {
@@ -75,11 +76,13 @@ public class BreadthFirstSearch {
     }
 
     private static void printDistance(int root, int numVertices, int [] distance) {
+        System.out.println();
         System.out.println("\nBFS - Caminho mínimo:");
         System.out.println("\nOrigem Vértice Distância");
-        for (int i = 1; i < numVertices; i++) {
-            System.out.println("  " + root + "       " + i + "       " + distance[i]);
+        for (int i = 0; i <= numVertices; i++) {
+            if(distance[i] != 0) {
+                System.out.println("  " + root + "       " + i + "       " + distance[i]);
+            }
         }
-        System.out.println();
     }
 }

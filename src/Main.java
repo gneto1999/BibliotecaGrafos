@@ -108,6 +108,20 @@ public class Main {
                             DijkstraAlgorithm.dijkstra(Graph.getAdjacencyList(), Graph.getAdjacencyMatrix(), Graph.getNumberVertices(), initialVertex);
                         }
                         break;
+                    case 7:
+                        System.out.println("1 - O Grafo não tem peso");
+                        System.out.println("2 - O Grafo tem peso");
+                        System.out.print("Opção: ");
+                        option = sc.nextInt();
+                        sc.nextLine();
+
+                        boolean hasWeight = false;
+                        if(option == 2) {
+                            hasWeight = true;
+                        }
+
+                        AveragePathLength.avg(Graph.getAdjacencyList(), Graph.getAdjacencyMatrix(), hasWeight);
+                        break;
                     default:
                         System.out.println("Opção incorreta!");
                 }
@@ -128,6 +142,7 @@ public class Main {
         System.out.println("4 - Componentes Conexos");
         System.out.println("5 - Árvore geradora mínima MST");
         System.out.println("6 - Distância e Caminho Mínimo");
+        System.out.println("7 - Distância média");
         System.out.println("0 - Sair do programa");
     }
 

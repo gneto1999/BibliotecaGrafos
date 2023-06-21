@@ -4,20 +4,20 @@ import java.io.IOException;
 import java.util.*;
 
 public class DijkstraAlgorithm {
-    public static void dijkstra(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numVertices, int initialVertex) {
-        initialize(adjacencyList, adjacencyMatrix, numVertices, initialVertex);
+    public static int [] dijkstra(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numVertices, int initialVertex) {
+        return initialize(adjacencyList, adjacencyMatrix, numVertices, initialVertex);
     }
 
-    private static void initialize(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numVertices, int initialVertex) {
-        int [] key = new int[numVertices];
-        Integer [] parent = new Integer[numVertices];
-        boolean [] visited = new boolean[numVertices];
+    private static int [] initialize(List<List<Edge>> adjacencyList, int [][] adjacencyMatrix, int numVertices, int initialVertex) {
+        int [] key = new int[numVertices+1];
+        Integer [] parent = new Integer[numVertices+1];
+        boolean [] visited = new boolean[numVertices+1];
 
         Arrays.fill(key, Integer.MAX_VALUE);
         Arrays.fill(parent, null);
         Arrays.fill(visited, false);
 
-        key[0] = 0;
+        key[initialVertex] = 0;
 
         PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>(numVertices, Comparator.comparingInt(v -> v.getKey()));
 
@@ -30,6 +30,8 @@ public class DijkstraAlgorithm {
         }
 
         printDijkstra(initialVertex, numVertices, key);
+
+        return key;
     }
 
     private static void relaxation(boolean [] visited, Integer [] parent, int [] key, PriorityQueue<Vertex> priorityQueue, List<List<Edge>> adjacencyList) {
@@ -75,8 +77,10 @@ public class DijkstraAlgorithm {
     private static void printDijkstra(int root, int numVertices, int [] key) {
         System.out.println("Algoritmo Dijkstra - Caminho mínimo:");
         System.out.println("\nOrigem Vértice Distância");
-        for (int i = 1; i < numVertices; i++) {
-            System.out.println("  " + root + "       " + i + "       " + key[i]);
+        for (int i = 0; i <= numVertices; i++) {
+            if(key[i] != Integer.MAX_VALUE) {
+                System.out.println("  " + root + "       " + i + "       " + key[i]);
+            }
         }
         System.out.println();
     }
