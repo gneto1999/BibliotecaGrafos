@@ -29,7 +29,7 @@ public class DijkstraAlgorithm {
             relaxation(visited, parent, key, priorityQueue, adjacencyMatrix);
         }
 
-        printDijkstra(initialVertex, numVertices, key);
+        printDijkstra(initialVertex, numVertices, parent, key);
 
         return key;
     }
@@ -74,14 +74,24 @@ public class DijkstraAlgorithm {
         }
     }
 
-    private static void printDijkstra(int root, int numVertices, int [] key) {
-        System.out.println("Algoritmo Dijkstra - Caminho mínimo:");
+    private static void printDijkstra(int root, int numVertices, Integer [] parent, int [] key) {
+        System.out.println("Algoritmo Dijkstra - Caminho mínimo a partir do vértice " + root);
         System.out.println("\nOrigem Vértice Distância");
         for (int i = 0; i <= numVertices; i++) {
             if(key[i] != Integer.MAX_VALUE) {
-                System.out.println("  " + root + "       " + i + "       " + key[i]);
+                printPath(parent, i);
+                System.out.print("  Distância(" + key[i] + ")");
+                System.out.println();
             }
         }
         System.out.println();
+    }
+
+    private static void printPath(Integer[] parent, int vertex) {
+        if (parent[vertex] != null) {
+            printPath(parent, parent[vertex]);
+            System.out.print(" -> ");
+        }
+        System.out.print(vertex);
     }
 }
